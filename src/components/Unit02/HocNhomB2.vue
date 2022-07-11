@@ -1,20 +1,17 @@
 <template>
     <div class="container">
         <div class="b1">
-            <table>
-                <thead>
-                    <th>Tên</th>
-                    <th>Giá</th>
-                </thead>
-                <tbody v-for="item in products" :key="item">
-                    <td>
-                        {{ item.name }}
-                    </td>
-                    <td>
-                        {{ item.price }}
-                    </td>
-                </tbody>
-            </table>
+            <form action="">
+                <input type="text" placeholder="Name" v-model="form.name">
+                <p v-if="error.name">{{ error.name }}</p>
+                <input type="text" placeholder="PhoneNumber" v-model="form.phone">
+                <p v-if="error.phone">{{ error.phone }}</p>
+                <input type="password" placeholder="Password" v-model="form.password">
+                <p v-if="error.password">{{ error.password }}</p>
+                <input type="password" placeholder="ConfirmpassWord" v-model="form.confirmPassword">
+                <p v-if="error.confirmPassword">{{ error.confirmPassword }}</p>
+                <button @click.prevent="submit()">Submit</button>
+            </form>
         </div>
     </div>
 </template>
@@ -24,30 +21,75 @@
         name:'HocNhomB2',
         data() {
             return {
-                products:[
-                    {
-                        name: 'iPhone 12 Pro Max Chính Hãng',
-                        price: 32990000,
-                    },
-                    {
-                        name: 'iPhone 12 Chính Hãng (VN/A)',
-                        price: 21790000,
-                    },
-                    {
-                        name: 'iPhone 11 Chính hãng',
-                        price: 16690000,
-                    },
-                    {
-                        name: 'Apple iPhone XR 64GB Chính hãng(VN/A)',
-                        price: 12190000,
-                    },
-                    {
-                        name: 'iPhone 11 Pro Max Chính hãng(VN/A)',
-                        price: 26500000,
-                    }
-                ],
+                form:{
+                    name:'',
+                    phone:'',
+                    password:'',
+                    confirmPassword:'',
+                },
+               
+               error:{
+                    name:'',
+                    phone:'',
+                    password:'',
+                    confirmPassword:'',
+               },
             }
         },
+        methods: {
+            submit(){
+                if(!this.form.name || !this.form.phone || !this.form.password || !this.form.confirmPassword){
+                    this.validateForm()
+                }else{
+                    alert('ok')
+                }
+               
+            },
+            validateForm(){
+                if(!this.form.name){
+                    this.error.name = 'Vui lòng nhập tên'    
+                }
+                if(!this.form.phone){
+                    this.error.phone = 'Vui lòng nhập số đt'    
+                }else if(isNaN(this.form.phone)){
+                    this.error.phone = 'Dữ liệu nhập vào phải là số'    
+                }else{
+                    this.error.phone = ''
+                }
+                if(!this.form.password){
+                    this.error.password = 'Vui lòng nhập mật khẩu'    
+                }else if(this.form.password.length < 8){
+                    this.error.password = 'Mật khẩu phải lớn hơn 8 kí tự'
+                }
+                if(!this.form.confirmPassword){
+                    this.error.confirmPassword = 'Vui lòng nhập lại mật khẩu'    
+                }else if(this.form.confirmPassword !== this.form.password){
+                    this.error.confirmPassword = 'Nhập lại mật khẩu chưa khớp'
+                }
+            },
+        },
+        watch:{
+           'form.name'(value){
+                if(value.length > 0){
+                    this.error.name = ''
+                }
+           },
+           'form.phone'(value){
+                if(value.length > 0){
+                    this.error.phone = ''
+                }
+           },
+           'form.password'(value){
+                if(value.length > 0){
+                    this.error.password = ''
+                }
+           },
+           'form.confirmPassword'(value){
+                if(value.length > 0){
+                    this.error.confirmPassword = ''
+                }
+           },
+        }
     }
 </script>
 
@@ -56,41 +98,29 @@
             width: 800px;
             margin: 0 auto;
             .b1{
-                width: 100%;
-               table{
-                width: 100%;
-                border-spacing: 0px !important;
-                border: 1px solid rgb(193, 189, 189);
-                th{
-                    padding: 20px;
-                    background-color: #f2f6fe;
-                    border-left: 1px solid rgb(193, 189, 189);
-                    border-bottom: 1px solid rgb(193, 189, 189);
+                width: 400px;
+                padding: 10px;
+                input{
+                    width: 100%;
+                    outline: none;
+                    margin-top: 10px;
+                    height: 30px;
+                    font-size: 18px;
                 }
-                th:nth-child(1){
-                    border-left: 0px;
+                button{
+                    width: 100px;
+                    background-color: rgb(40, 79, 236);
+                    border: 0px;
+                    color: white;
+                    height: 40px;
+                    margin-top: 10px;
+                    border-radius: 10px;
                 }
-                td{
-                    font-weight: bold;
-                    padding: 20px;
-                    text-align: center;
-                    border-left: 1px solid rgb(193, 189, 189);
-                    border-bottom: 1px solid rgb(193, 189, 189);
-                    img{
-                        width: 60px;
-                        height: 60px;
-                    }
-                    span{
-                        margin-left: 10px;
-                    }
-                }
-                td:nth-child(1){
-                    border-left: 0px;
-                }
-                td:nth-child(2){
+                p{
                     text-align: left;
+                    margin: 10px 0;
+                    color: red;
                 }
-            }
             }
         }
 </style>

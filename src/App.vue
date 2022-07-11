@@ -8,9 +8,12 @@
     <ExamPle03/> -->
     <!-- <HocnhomB1/> -->
     <!-- <ExamPle/> -->
-    <HomeWork01/>
-    <HomeWork02/>
+    <!-- <HomeWork01/> -->
+    <!-- <HomeWork02/> -->
     <!-- <HocNhomB2/> -->
+    <!-- <FormLogin/> -->
+    <TodoApp/>
+    <ExcerciseTwo/>
   </div>
 </template>
 
@@ -22,9 +25,12 @@
 // import ExamPle03 from './components/Unit01/ExamPle03'
 // import HocnhomB1 from './components/Unit01/HocnhomB1'
 //import ExamPle from './components/Unit02/ExamPle'
-import HomeWork01 from './components/Unit02/HomeWork01'
-import HomeWork02 from './components/Unit02/HomeWork02'
+// import HomeWork01 from './components/Unit02/HomeWork01'
+// import HomeWork02 from './components/Unit02/HomeWork02'
 // import HocNhomB2 from './components/Unit02/HocNhomB2'
+// import FormLogin from './components/Unit03/Login'
+import TodoApp from './components/Unit03/TodoApp' 
+import ExcerciseTwo from './components/Unit03/ExcerciseTwo.vue'      
 export default {
   name: 'App',
   components: {
@@ -35,9 +41,12 @@ export default {
     // ExamPle03,
     // HocnhomB1,
     // ExamPle,
-    HomeWork01,
-    HomeWork02,
-    // HocNhomB2
+    // HomeWork01,
+    // HomeWork02,
+    // HocNhomB2,
+    // FormLogin,
+    TodoApp,
+    ExcerciseTwo
 }
 }
 </script>

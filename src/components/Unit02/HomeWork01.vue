@@ -103,7 +103,8 @@
                 return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(number)
             },
             clear(){
-                this.searchProduct = ''
+                this.searchProduct = '';
+                return this.kq = this.products
             },
             resultQuery(){
                 this.saveSearch = this.searchProduct
