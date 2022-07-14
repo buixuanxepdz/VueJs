@@ -38,12 +38,7 @@
         },
         methods: {
             submit(){
-                if(!this.form.name || !this.form.phone || !this.form.password || !this.form.confirmPassword){
-                    this.validateForm()
-                }else{
-                    alert('ok')
-                }
-               
+                this.validateForm()     
             },
             validateForm(){
                 if(!this.form.name){
@@ -51,10 +46,9 @@
                 }
                 if(!this.form.phone){
                     this.error.phone = 'Vui lòng nhập số đt'    
-                }else if(isNaN(this.form.phone)){
+                }
+                if(isNaN(this.form.phone)){
                     this.error.phone = 'Dữ liệu nhập vào phải là số'    
-                }else{
-                    this.error.phone = ''
                 }
                 if(!this.form.password){
                     this.error.password = 'Vui lòng nhập mật khẩu'    
@@ -65,6 +59,13 @@
                     this.error.confirmPassword = 'Vui lòng nhập lại mật khẩu'    
                 }else if(this.form.confirmPassword !== this.form.password){
                     this.error.confirmPassword = 'Nhập lại mật khẩu chưa khớp'
+                }
+                if(this.error.name == '' && this.error.phone == '' && this.error.password == '' && this.error.confirmPassword == ''){
+                    alert('ok')
+                    this.form.name = ''
+                    this.form.phone = ''
+                    this.form.password = ''
+                    this.form.confirmPassword = ''
                 }
             },
         },
@@ -77,6 +78,9 @@
            'form.phone'(value){
                 if(value.length > 0){
                     this.error.phone = ''
+                }
+                if(isNaN(value)){
+                    this.error.phone = 'Dữ liệu nhập vào phải là số' 
                 }
            },
            'form.password'(value){
