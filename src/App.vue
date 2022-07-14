@@ -24,8 +24,8 @@
     <!-- <ThuchanhRef/> -->
     <!-- <BaseLayout/> -->
     <!-- <BaseLayout02/> -->
-    <!-- <NewsDetailPage/>   -->
-    <ProductPage/>
+    <NewsDetailPage/>  
+    <!-- <ProductPage/> -->
     <!-- <HocnhomB3/> -->
   </div>
 </template>
@@ -48,8 +48,8 @@
 // import ThuchanhRef from './components/Unit04/ThuchanhRef.vue'      
 // import BaseLayout from './components/Unit04/BaseLayout.vue'      
 // import BaseLayout02 from './components/Unit04/BaseLayout02.vue'      
-// import NewsDetailPage from './components/Unit04/NewsDetailPage.vue'   //Bai 2 Unit4    
-import ProductPage from './components/Unit04/ProductPage.vue'       //Bai 1 Unit4
+import NewsDetailPage from './components/Unit04/NewsDetailPage.vue'   //Bai 2 Unit4    
+// import ProductPage from './components/Unit04/ProductPage.vue'       //Bai 1 Unit4
 // import HocnhomB3 from './components/Unit04/HocnhomB3.vue'      
 export default {
   name: 'App',
@@ -71,8 +71,8 @@ export default {
     // ThuchanhRef,
     // BaseLayout,
     // BaseLayout02,
-    // NewsDetailPage,
-    ProductPage,
+    NewsDetailPage,
+    // ProductPage,
     // HocnhomB3
 }
 }
