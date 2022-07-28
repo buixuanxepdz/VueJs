@@ -34,9 +34,9 @@
             <div class="foot">
                 <h2>{{datas.length == 0 ? 'Hiển thị 0 - 0 trên tổng 0 (0 trang)' : `Hiển thị ${start+1} - ${toPage()} trên tổng ${datas.length} (${currentPage} trang)` }}</h2>
                 <div class="paginate">
-                    <button v-if="currentPage == 1" :style="notAllow" disabled> <i class="fa-solid fa-angle-left"></i> </button>
+                    <button v-if="currentPage == 1 || datas == ''" :style="notAllow" disabled> <i class="fa-solid fa-angle-left"></i> </button>
                     <button v-else @click="prevPage()"> <i class="fa-solid fa-angle-left"></i> </button>
-                    <button v-if="currentPage == Math.ceil(datas.length/itemPage)" :style="notAllow" disabled> <i class="fa-solid fa-angle-right"></i> </button>
+                    <button v-if="currentPage == Math.ceil(datas.length/itemPage) || datas == ''" :style="notAllow" disabled> <i class="fa-solid fa-angle-right"></i> </button>
                     <button v-else @click="nextPage()" > <i class="fa-solid fa-angle-right"></i> </button>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div class="detail-todo"><input type="checkbox" class="check" :checked="check" @click="handleCheck"> <span>{{ title }}</span> </div><button :style="btn" @click="remove">Xóa</button>
+        <div class="detail-todo"><input type="checkbox" class="check" :checked="check" @click="handleCheck"> <span @click="handleCheck" style="cursor:pointer ;">{{ title }}</span> </div><button :style="btn" style="cursor:pointer ;" @click="remove">Xóa</button>
     </div>
 </template>
 
@@ -10,7 +10,7 @@
         name:'TodoItem',
         data() {
             return {
-                btn:'display:none',
+                btn:'display:none;',
                 check:false
             }
         },
@@ -27,6 +27,8 @@
             },
             remove(){
                 this.$emit('handleRemove', this.removeTodo);
+                this.check = false
+                this.btn = 'display:none' 
             }
         },
         props:['title']

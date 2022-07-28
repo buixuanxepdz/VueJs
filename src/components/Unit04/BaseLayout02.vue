@@ -61,11 +61,6 @@
         return {
             activeIndex: "1",
             activeIndex2: "1",
-            carousels: [
-                { image: "http://saovangholdings.com/public/upload/banner/banner tin tá»©c.jpg" },
-                { image: "https://vihamark.com/images/category/category_post-1624904858-banner_congnghe.jpg" },
-                { image: "https://sorellabeautyspa.com/wp-content/uploads/2021/06/TIN-TUC-BANNER.jpg" },
-            ]
         };
     },
     methods: {

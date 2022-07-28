@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div class="tab">
-            <div @click="btn = true">Tab1</div>
-            <div @click="btn = false">Tab2</div>
+            <div @click="btn = true" style="cursor: pointer;">Tab1</div>
+            <div @click="btn = false" style="cursor: pointer;">Tab2</div>
         </div>
         <div class="content">
             <div class="tab1" v-if="btn == true" ref="tab1">
