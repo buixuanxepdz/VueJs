@@ -77,6 +77,16 @@ const routes = [
         },
     ]
   },
+  {
+    path: '/learn-vuex',
+    name: 'learnVuex',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Unit07/LearnVuex.vue')
+  },
+  {
+    path: '/learn-vuex2',
+    name: 'learnVuex2',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Unit07/LearnVuex2.vue')
+  },
 
 ]
 
