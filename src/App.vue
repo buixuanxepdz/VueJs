@@ -5,20 +5,23 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/product">Product</router-link>
     </nav> -->
-    <!-- <router-view/> -->
+    <router-view/>
     <!-- <LoginLayout/> -->
-    <HomeWork01/>
+    <!-- <HomeWork01/>
     <HomeWork02/>
+    <HocNhomBuoi7/> -->
   </div>
 </template>
 <script>
-import HomeWork01 from './components/Unit07/HomeWork01.vue';
-import HomeWork02 from './components/Unit07/HomeWork02.vue';
+// import HomeWork01 from './components/Unit07/HomeWork01.vue';
+// import HomeWork02 from './components/Unit07/HomeWork02.vue';
+// import HocNhomBuoi7 from './components/Unit07/HocnhomBuoi7.vue';
 // import LoginLayout from "./components/Unit05/LoginLayout.vue";
 export default {
   components:{
-    HomeWork01,
-    HomeWork02
+    // HomeWork01,
+    // HomeWork02,
+    // HocNhomBuoi7
 }
 }
 </script>

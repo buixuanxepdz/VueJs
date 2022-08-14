@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import product from './product/index'
+import order from './order/index'
 
 Vue.use(Vuex)
 
@@ -140,11 +142,11 @@ const store = new Vuex.Store({
       let index = state.newDatas.findIndex((data) => data.id == state.productsBai2.id)
       if(index >= 0){
         state.newDatas.splice(index,1,state.productsBai2)
-         state.productsBai2 = {
-          id:'SP'+ Math.floor(Math.random()*10000),
-          name:'',
-          price:'',
-          quantity:''
+        state.productsBai2 = {
+        id:'SP'+ Math.floor(Math.random()*10000),
+        name:'',
+        price:'',
+        quantity:''
         }
         state.checkBtn = true  
       }else{
@@ -193,6 +195,10 @@ const store = new Vuex.Store({
       state.start = (state.currentPage - 1) * state.itemPage
       state.end = state.currentPage * state.itemPage  
     },
+  },
+  modules:{
+    product,
+    order
   }
 })
 

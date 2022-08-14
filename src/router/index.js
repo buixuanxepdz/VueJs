@@ -87,6 +87,31 @@ const routes = [
     name: 'learnVuex2',
     component: () => import(/* webpackChunkName: "about" */ '../components/Unit07/LearnVuex2.vue')
   },
+  {
+    path:'/products', //api
+    name:'ListProductAPI',
+    component: () => import('../views/ProductListAPI.vue')
+  },
+  {
+    path:'/products/:id', //api
+    name:'deleteProduct',
+    component: () => import('../views/ProductListAPI.vue')
+  },
+  {
+    path:'/products/:id', //api
+    name:'updateProduct',
+    component: () => import('../views/ProductListAPI.vue')
+  },
+  // {
+  //   path:'/products?q=:name', //api
+  //   name:'searchProduct',
+  //   component: () => import('../views/ProductListAPI.vue')
+  // },
+  // {
+  //   path:'/products?page=:number', //api
+  //   name:'paginationProduct',
+  //   component: () => import('../views/ProductListAPI.vue')
+  // },
 
 ]
 

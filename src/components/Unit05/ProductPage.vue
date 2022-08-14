@@ -5,7 +5,8 @@
                 Quản lý sản phẩm
             </template>
             <template #table>
-                <el-table :data="tableData" border style="width: 100%">
+                <h2>{{ titleProducts }} <el-button type="primary" @click="handleChangeTitle()" icon="el-icon-edit" circle></el-button></h2>
+                <el-table :data="products" border style="width: 100%">
                     <el-table-column
                         prop="name"
                         label="Tên Sản Phẩm"
@@ -34,31 +35,25 @@
 </template>
 
 <script>
+import {  mapMutations, mapState } from 'vuex';
 import BaseLayout from '../Unit05/BaseLayout.vue';
     export default {
     name: "ProductPage",
     components: { BaseLayout },
     data() {
         return {
-             tableData: [{
-                    date: "2016-05-03",
-                    name: "Tom",
-                    description: "Đây là sản phẩm 1"
-                }, {
-                    date: "2016-05-02",
-                    name: "Tom",
-                    description: "Đây là sản phẩm 2"
-                }, {
-                    date: "2016-05-04",
-                    name: "Tom",
-                    description: "Đây là sản phẩm 3"
-                }, {
-                    date: "2016-05-01",
-                    name: "Tom",
-                    description: "Đây là sản phẩm 4"
-                }],
+             
         }
     },
+    methods:{
+        ...mapMutations('product', ['changeTitle']),
+        handleChangeTitle(){
+            this.changeTitle()
+        }
+    },
+    computed:{
+        ...mapState('product', ['products','titleProducts']),
+    }
 }
 </script>
 

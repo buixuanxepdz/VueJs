@@ -5,7 +5,8 @@
                 Quản lý hóa đơn
             </template>
             <template #table>
-                <el-table :data="tableData" border style="width: 100%">
+                <h2>{{ titleOrders }}<el-button type="primary" @click="handleChangeTitle()" icon="el-icon-edit" circle></el-button></h2>
+                <el-table :data="receipt" border style="width: 100%">
                     <el-table-column
                         prop="date"
                         label="Date"
@@ -17,8 +18,8 @@
                         width="180">
                         </el-table-column>
                         <el-table-column
-                        prop="address"
-                        label="Address">
+                        prop="description"
+                        label="Mô tả">
                         </el-table-column>
                 </el-table>
                 <div class="block">
@@ -34,31 +35,25 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
 import BaseLayout from '../components/Unit05/BaseLayout.vue';
     export default {
     name: "ReceiptView",
     components: { BaseLayout },
     data() {
         return {
-             tableData: [{
-                    date: "2016-05-03",
-                    name: "Tom",
-                    address: "No. 189, Grove St, Los Angeles"
-                }, {
-                    date: "2016-05-02",
-                    name: "Tom",
-                    address: "No. 189, Grove St, Los Angeles"
-                }, {
-                    date: "2016-05-04",
-                    name: "Tom",
-                    address: "No. 189, Grove St, Los Angeles"
-                }, {
-                    date: "2016-05-01",
-                    name: "Tom",
-                    address: "No. 189, Grove St, Los Angeles"
-                }],
+           
         }
     },
+    methods: {
+        ...mapMutations('order', ['changeTitle']),
+        handleChangeTitle(){
+            this.changeTitle()
+        }
+    },
+    computed:{
+        ...mapState('order', ['receipt','titleOrders']),
+    }
 }
 </script>
 
