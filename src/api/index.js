@@ -47,12 +47,8 @@ export default {
     updateProduct(data){
         return apiAxios({
             method:'post',
-            url:`/products/${data.id}`,
-            data:{
-              name:data.name,
-              price:data.price,
-              description:data.description
-            }
+            url:`/products/${data.get('id')}`,
+            data
         })
     },
     saveProduct(data){

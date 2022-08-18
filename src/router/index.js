@@ -102,11 +102,11 @@ const routes = [
     name:'updateProduct',
     component: () => import('../views/ProductListAPI.vue')
   },
-  // {
-  //   path:'/products?q=:name', //api
-  //   name:'searchProduct',
-  //   component: () => import('../views/ProductListAPI.vue')
-  // },
+  {
+    path:'/preview', //api
+    name:'preview',
+    component: () => import('../components/Unit10/PreviewImage.vue')
+  },
   // {
   //   path:'/products?page=:number', //api
   //   name:'paginationProduct',

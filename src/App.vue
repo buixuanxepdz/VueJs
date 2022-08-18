@@ -6,6 +6,7 @@
       <router-link to="/product">Product</router-link>
     </nav> -->
     <router-view/>
+    <!-- <UploadFile/> -->
     <!-- <LoginLayout/> -->
     <!-- <HomeWork01/>
     <HomeWork02/>
@@ -13,15 +14,14 @@
   </div>
 </template>
 <script>
+// import UploadFile from './components/Unit09/UploadFile.vue';
 // import HomeWork01 from './components/Unit07/HomeWork01.vue';
 // import HomeWork02 from './components/Unit07/HomeWork02.vue';
 // import HocNhomBuoi7 from './components/Unit07/HocnhomBuoi7.vue';
 // import LoginLayout from "./components/Unit05/LoginLayout.vue";
 export default {
   components:{
-    // HomeWork01,
-    // HomeWork02,
-    // HocNhomBuoi7
+    // UploadFile
 }
 }
 </script>

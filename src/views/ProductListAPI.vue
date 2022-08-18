@@ -20,9 +20,21 @@
                         width="180">
                         </el-table-column>
                         <el-table-column
-                        prop="name"
                         label="Name"
-                        width="200">
+                        width="max-content">
+                        <template slot-scope="scope">
+                          <div style="display:flex;align-items: center;">
+                            <div>{{ scope.row.name }}</div>
+                            <span style="margin-left: 10px">
+                              <img
+                                :src="`http://vuecourse.zent.edu.vn/storage/${scope.row.image}`"
+                                alt=""
+                                style="width:100px;height:100px"
+                              />
+                            </span>
+                          </div>
+                          
+                        </template>
                         </el-table-column>
                         <el-table-column
                         prop="description"
@@ -33,7 +45,8 @@
                         label="Giá">
                         </el-table-column>
                         <el-table-column
-                          align="right">
+                          align="right"
+                          label="Hành động" style="text-align: center;">
                           <template slot-scope="scope">
                             <el-button
                               size="mini"
@@ -69,7 +82,7 @@
                 { required: true, message: 'Tên sản phẩm không được để trống',trigger:'click'},
               ]"
             >
-              <el-input type="text" v-model="createProduct.name" autocomplete="off"></el-input>
+              <el-input type="text" v-model="createProduct.name"  autocomplete="off"></el-input>
               <!-- <span>{{ error.name[0] }}</span> -->
             </el-form-item>
              <el-form-item
@@ -89,7 +102,13 @@
                 { type: 'number', message: 'Giá sản phẩm phải là số',trigger:'click'}
               ]"
             >
-              <el-input type="number" v-model.number="createProduct.price" autocomplete="off"></el-input>
+              <el-input type="number" v-model.number="createProduct.price"  autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item
+            >
+              <!-- <input type="file" ref="file"  autocomplete="off"> -->
+              <PreviewImage @preview="handlePreview" />
+              <span style="color: red;" class="error" v-if="error.image">{{ error.image[0] }}</span>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('createProduct')">Tạo mới</el-button>
@@ -132,6 +151,10 @@
             >
               <el-input type="number" v-model.number="formEdit.price" autocomplete="off"></el-input>
             </el-form-item>
+            <el-form-item
+            >
+               <PreviewImage @preview="handlePreview" :fileUpdate="formEdit.image" />
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="updateForm('formEdit')">Cập nhật</el-button>
               <el-button @click="resetForm('formEdit')">Hủy</el-button>
@@ -145,138 +168,163 @@
 
 <script>
  import api from '../api/index'
+import PreviewImage from '@/components/Unit10/PreviewImage.vue'
   export default {
     data() {
-      return {
-        search:'',
-        products:[],
-        centerDialogVisible: false,
-        updateDialog: false,
-        createProduct: {
-          name:'',
-          description:'',
-          price:'',
-        } ,
-        formEdit:{
-          id:'',
-          name:'',
-          description:'',
-          price:'',
-        },
-        error:{},
-        current_page:1,
-        perPage:'',
-        total:'',
-      }
+        return {
+            search: "",
+            products: [],
+            centerDialogVisible: false,
+            updateDialog: false,
+            createProduct: {
+                name: "",
+                description: "",
+                price: "",
+                image: ""
+            },
+            formEdit: {
+                id: "",
+                name: "",
+                description: "",
+                price: "",
+            },
+            error: {},
+            current_page: 1,
+            perPage: "",
+            total: "",
+        };
     },
     methods: {
-      getList(){
-        let data = {
-          search: this.search,
-          page: this.current_page
-        }
-        api.getListProduct(data).then(res => {
-            this.products = res.data.data.data
-            this.total = res.data.data.total
-            this.perPage = res.data.data.per_page
-            // console.log(res)
-        }).catch(err => {
-            console.log(err)
-        })
+      handlePreview(data){
+          this.createProduct.image = data
+          this.formEdit.image = data
       },
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-             api.saveProduct(this.createProduct).then(res => {
-                if(res.status == 200){
-                    this.$message({
-                      message: 'Thêm mới thành công',
-                      type: 'success'
-                    });
-                    this.centerDialogVisible = false
-                    this.createProduct = {
-                      name:'',
-                      description:'',
-                      price:''
-                    }  
-                    this.getList()
-                    this.current_page = 1
-                }
-              }).catch(err => {
-                  console.log(err)
-              })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-      handleDelete(id) {
-          this.$confirm('Bạn muốn xóa sản phẩm này ?', 'Xóa sản phẩm', {
-            confirmButtonText: 'OK',
-            cancelButtonText: 'Cancel',
-            type: 'warning',
-            center: true
-          }).then(() => {
-            api.deleteProduct(id).then(res => {
-              if(res.status == 200){
-                 this.getList()
-              }
+        getList() {
+            let data = {
+                search: this.search,
+                page: this.current_page
+            };
+            api.getListProduct(data).then(res => {
+                this.products = res.data.data.data;
+                this.total = res.data.data.total;
+                this.perPage = res.data.data.per_page;
+                // console.log(res)
             }).catch(err => {
-                console.log(err)
-            })
-            this.$message({
-              type: 'success',
-              message: 'Xóa sản phẩm thành công'
+                console.log(err);
             });
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: 'Đã hủy xóa sản phẩm'
-            });
-          });
-
-      },
-      handleEdit(data){
-        this.checkBTN = false
-        this.formEdit = {
-            id:data.id,
-            name:data.name,
-            description:data.description,
-            price:data.price,
-        }
-        this.updateDialog = true
-      },
-      updateForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-             api.updateProduct(this.formEdit).then(res => {
-                if(res.status == 200){
-                    this.$message({
-                      message: 'Cập nhật thành công',
-                      type: 'success'
+        },
+        // changeFile(e){
+        //           console.log(e.target.files[0])
+        //           this.file = e.target.files[0]
+        //           this.fileName = e.target.files[0].name
+        // },
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let data = new FormData();
+                    data.append("name", this.createProduct.name);
+                    data.append("description", this.createProduct.description);
+                    data.append("price", this.createProduct.price);
+                    data.append("image", this.createProduct.image);
+                    console.log(this.createProduct.image)
+                    api.saveProduct(data).then(res => {
+                        if (res.status == 200) {
+                            this.$message({
+                                message: "Thêm mới thành công",
+                                type: "success"
+                            });
+                            this.centerDialogVisible = false;
+                            this.createProduct = {
+                                name: "",
+                                description: "",
+                                price: "",
+                            };
+                            this.createProduct.image = ''
+                            this.getList();
+                            this.current_page = 1;
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                        this.error = err.response.data.error;
                     });
-                    this.updateDialog = false
-                    this.getList()
                 }
-              }).catch(err => {
-                  console.log(err)
-              })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      HandleChange(val){
-        this.current_page = val
-        this.getList()
-      },
+                else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        handleDelete(id) {
+            this.$confirm("Bạn muốn xóa sản phẩm này ?", "Xóa sản phẩm", {
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                type: "warning",
+                center: true
+            }).then(() => {
+                api.deleteProduct(id).then(res => {
+                    if (res.status == 200) {
+                        this.getList();
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+                this.$message({
+                    type: "success",
+                    message: "Xóa sản phẩm thành công"
+                });
+            }).catch(() => {
+                this.$message({
+                    type: "info",
+                    message: "Đã hủy xóa sản phẩm"
+                });
+            });
+        },
+        handleEdit(data) {
+            this.formEdit.id = data.id,
+            this.formEdit.name = data.name,
+            this.formEdit.description = data.description,
+            this.formEdit.price = data.price,
+            this.formEdit.image = data.image;
+            this.updateDialog = true;
+        },
+        updateForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let data = new FormData();
+                    data.append("id", this.formEdit.id);
+                    data.append("name", this.formEdit.name);
+                    data.append("description", this.formEdit.description);
+                    data.append("price", this.formEdit.price);
+                    data.append("image", this.formEdit.image);
+                    console.log(data);
+                    api.updateProduct(data).then(res => {
+                        if (res.status == 200) {
+                            this.$message({
+                                message: "Cập nhật thành công",
+                                type: "success"
+                            });
+                            this.updateDialog = false;
+                            this.getList();
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+                else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
+        },
+        HandleChange(val) {
+            this.current_page = val;
+            this.getList();
+        },
     },
-    mounted(){
+    mounted() {
         // axios({
         //     method:'get',
         //     url:'http://vuecourse.zent.edu.vn/api/products'
@@ -286,7 +334,7 @@
         // }).catch(err => {
         //     console.log(err)
         // })
-       this.getList()
+        this.getList();
         // let data = {
         //     name:'tà tưa 2',
         //     price:4500000,
@@ -299,8 +347,9 @@
         // }).catch(err => {
         //     console.log(err)
         // })
-    }
-  }
+    },
+    components: { PreviewImage }
+}
 </script>
 
 <style lang="scss" scoped>
