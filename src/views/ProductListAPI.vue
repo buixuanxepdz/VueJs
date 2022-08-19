@@ -153,7 +153,7 @@
             </el-form-item>
             <el-form-item
             >
-               <PreviewImage @preview="handlePreview" :fileUpdate="formEdit.image" />
+               <PreviewImage @preview="handlePreview" :fileUpdate="checkFile" />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="updateForm('formEdit')">Cập nhật</el-button>
@@ -187,11 +187,13 @@ import PreviewImage from '@/components/Unit10/PreviewImage.vue'
                 name: "",
                 description: "",
                 price: "",
+                image:""
             },
             error: {},
             current_page: 1,
             perPage: "",
             total: "",
+            checkFile:''
         };
     },
     methods: {
@@ -287,7 +289,7 @@ import PreviewImage from '@/components/Unit10/PreviewImage.vue'
             this.formEdit.name = data.name,
             this.formEdit.description = data.description,
             this.formEdit.price = data.price,
-            this.formEdit.image = data.image;
+            this.checkFile = data.image;
             this.updateDialog = true;
         },
         updateForm(formName) {
@@ -298,7 +300,9 @@ import PreviewImage from '@/components/Unit10/PreviewImage.vue'
                     data.append("name", this.formEdit.name);
                     data.append("description", this.formEdit.description);
                     data.append("price", this.formEdit.price);
-                    data.append("image", this.formEdit.image);
+                    if(this.formEdit.image){
+                      data.append("image", this.formEdit.image);
+                    }
                     console.log(data);
                     api.updateProduct(data).then(res => {
                         if (res.status == 200) {
